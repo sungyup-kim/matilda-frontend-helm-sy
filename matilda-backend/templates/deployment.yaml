@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matilda-backend
+spec:
+  replicas: {{.Values.replicaCount}}
+  selector:
+    matchLabels:
+      app: matilda-backend
+  template:
+    metadata:
+      labels:
+        app: matilda-backend
+    spec:
+      hostNetwork: false
+      containers:
+      - name: matilda-backend
+        image: 3.37.191.158:30002/docker-local/matilda-backend:{{.Values.imagetag}}
+        #image: 15.164.12.54:5000/docker-local/matilda-backend
+        ports: []
+        resources:
+          limits: {}
+        ports:
+        - containerPort: 8000
+      imagePullSecrets:
+      - name: harborcred
